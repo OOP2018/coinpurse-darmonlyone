@@ -115,7 +115,6 @@ public class Purse {
         double amountNeededToWithdraw = amount;
         for (int i = money.size()-1 ; i >= 0 ; i--) {
             if (amountNeededToWithdraw != 0) {
-                // failed. Don't change the contents of the purse.
                 if ((amountNeededToWithdraw - money.get(i).getValue() >= 0)){
                     amountNeededToWithdraw -= money.get(i).getValue();
                     withDraw.add(money.get(i));
