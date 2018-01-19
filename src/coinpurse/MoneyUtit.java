@@ -12,7 +12,7 @@ public class MoneyUtit {
         coins.add( new Coin(0.25, "Bath"));
         coins.add( new Coin(1.0, "Bath"));
         coins.add( new Coin(5.0, "Bath"));
-        printCheckCoin(coins);
+        printCheckCoin(filterByCurrency(coins,"Bath"));
     }
     private static void printCheckCoin(List<Coin> coins){
         System.out.println("We have coin");
@@ -23,9 +23,9 @@ public class MoneyUtit {
         sortCoins(coins);
     }
     private static List<Coin> filterByCurrency(List<Coin> coins, String currency){
-        for (Coin coin : coins){
-            if (!coin.getCurrency().equals(currency))
-                coins.remove(coin);
+        for (int i = 0 ; i < coins.size() ; i++){
+            if (!coins.get(i).getCurrency().equals(currency))
+                coins.remove(coins.get(i));
         }
         return coins;
     }

@@ -16,6 +16,6 @@ public class PurseUtil {
         System.out.println(purse.getBalance());
         System.out.println(purse.toString());
         System.out.println(purse.withdraw(12));
-        System.out.println(purse.withdraw(11));
+        System.out.println(purse.withdraw(15));
     }
 }
