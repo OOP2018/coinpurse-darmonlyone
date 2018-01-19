@@ -64,7 +64,7 @@ public class Purse {
      *  @return true if purse is full.
      */
     public boolean isFull() {
-        return money.size() == 6;
+        return money.size() == capacity;
     }
 
     /** 
@@ -76,7 +76,7 @@ public class Purse {
      */
     public boolean insert( Coin coin ) {
         // if the purse is already full then can't insert anything.
-        if (money.size() < 6 && coin.getValue()>0)
+        if (money.size() < capacity && coin.getValue()>0)
         return money.add(coin);
         else return false;
     }
@@ -110,13 +110,15 @@ public class Purse {
 		// Did we get the full amount?
 		// This code assumes you decrease amount each time you remove a coin.
     	// Your code might use some other variable for the remaining amount to withdraw.
+        List<Coin> withDraw = new ArrayList<Coin>();
         Collections.sort(money);
         double amountNeededToWithdraw = amount;
-        for (int i = money.size()-1 ; i > 0 ; i--) {
+        for (int i = money.size()-1 ; i >= 0 ; i--) {
             if (amountNeededToWithdraw != 0) {
                 // failed. Don't change the contents of the purse.
                 if ((amountNeededToWithdraw - money.get(i).getValue() >= 0)){
                     amountNeededToWithdraw -= money.get(i).getValue();
+                    withDraw.add(money.get(i));
                     money.remove(money.get(i));
                 }
             }
@@ -128,8 +130,11 @@ public class Purse {
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
         Coin[] moneyArray = new Coin[0];
-        if (amountNeededToWithdraw > 0 ) return null;
-        return money.toArray(moneyArray);
+        if (amountNeededToWithdraw > 0 ){
+            money.addAll(withDraw);
+            return null;
+        }
+        return withDraw.toArray(moneyArray);
 	}
   
     /** 
@@ -138,11 +143,12 @@ public class Purse {
      */
     @Override
     public String toString() {
+        Collections.sort(money);
         String str = "Purse have ";
         for (Coin coin : money){
             str = str.concat(coin.toString() + " ");
         }
-    	return String.format("%d, Total is %.2f ,and capacity is %.2f",str,getBalance(),getCapacity());
+    	return String.format("%s, %d coin with value %.2f ",str,getCapacity(),getBalance());
     }
 
 }
