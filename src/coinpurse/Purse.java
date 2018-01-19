@@ -120,7 +120,7 @@ public class Purse {
                     amountNeededToWithdraw -= money.get(i).getValue();
                     withDraw.add(money.get(i));
                     money.remove(money.get(i));
-                }
+                } else break;
             }
         }
 
@@ -129,8 +129,8 @@ public class Purse {
 		// and return them as an array.
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
-        Coin[] moneyArray = new Coin[0];
-        if (amountNeededToWithdraw > 0 ){
+        Coin[] moneyArray = new Coin[withDraw.size()];
+        if (amountNeededToWithdraw > 0){
             money.addAll(withDraw);
             return null;
         }
@@ -152,4 +152,3 @@ public class Purse {
     }
 
 }
-//TODO When you finish, there should not be any TODO comments, including this one!

@@ -19,8 +19,19 @@ public class MoneyUtit {
         for (Coin coin: coins){
             System.out.print(coin + " ");
         }
+        System.out.println("");
+        sortCoins(coins);
+    }
+    private static List<Coin> filterByCurrency(List<Coin> coins, String currency){
+        for (Coin coin : coins){
+            if (!coin.getCurrency().equals(currency))
+                coins.remove(coin);
+        }
+        return coins;
+    }
+    private static void sortCoins(List<Coin> coins){
         java.util.Collections.sort(coins);
-        System.out.println("\nAfter sort ");
+        System.out.println("After sort ");
         for (Coin coin: coins){
             System.out.print(coin + " ");
         }
