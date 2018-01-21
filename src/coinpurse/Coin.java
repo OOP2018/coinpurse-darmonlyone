@@ -11,7 +11,7 @@ public class Coin implements Comparable<Coin> {
     private String currency;
 
     /**
-  +   * Initialize new Coins object
+     * Initialize new Coins object
      * @param value amount of the money
      * @param currency brand of value
      */
