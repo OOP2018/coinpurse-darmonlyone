@@ -118,18 +118,20 @@ public class Purse {
                 if ((amountNeededToWithdraw - money.get(i).getValue() >= 0)){
                     amountNeededToWithdraw -= money.get(i).getValue();
                     withDraw.add(money.get(i));
-                    money.remove(money.get(i));
-                } else break;
+                }
             }
         }
-
-		// Success.
+        //removing withDraw coin form purse
+        for (Coin coin : withDraw){
+            money.remove(coin);
+        }
+        // Success.
 		// Remove the coins you want to withdraw from purse,
 		// and return them as an array.
 		// Use list.toArray( array[] ) to copy a list into an array.
 		// toArray returns a reference to the array itself.
         Coin[] moneyArray = new Coin[withDraw.size()];
-        if (amountNeededToWithdraw > 0){
+        if (amountNeededToWithdraw > 0 || withDraw.isEmpty()){
             money.addAll(withDraw);
             return null;
         }
