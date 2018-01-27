@@ -79,12 +79,6 @@ public class Purse {
         // if the purse is already full then can't insert anything.
         if (money.size() < capacity && valuable.getValue()>0) {
             money.add(valuable);
-            money.sort(new Comparator<Valuable>() {
-                @Override
-                public int compare(Valuable o1, Valuable o2) {
-                    return o1.getValue() == o2.getValue() ? 0 : o1.getValue() > o2.getValue() ? 1 : -1;
-                }
-            });
             return true;
         }
         else return false;
@@ -119,6 +113,12 @@ public class Purse {
 		// Did we get the full amount?
 		// This code assumes you decrease amount each time you remove a coin and bank note.
     	// Your code might use some other variable for the remaining amount to withdraw.
+        money.sort(new Comparator<Valuable>() {
+            @Override
+            public int compare(Valuable o1, Valuable o2) {
+                return o1.getValue() == o2.getValue() ? 0 : o1.getValue() > o2.getValue() ? 1 : -1;
+            }
+        });
         List<Valuable> withDraw = new ArrayList<Valuable>();
         double amountNeededToWithdraw = amount;
         for (int i = money.size()-1 ; i >= 0 ; i--) {
@@ -152,11 +152,13 @@ public class Purse {
      */
     @Override
     public String toString() {
+        int valuableHave = 0;
         String str = "Purse have ";
         for (Valuable valuable : money){
+            valuableHave++;
             str = str.concat(valuable.toString() + " ");
         }
-    	return String.format("%s, %d valuable with value %.2f ",str,getCapacity(),getBalance());
+    	return String.format("%s, %d valuable with value %.2f ",str,valuableHave,getBalance());
     }
 
 }
