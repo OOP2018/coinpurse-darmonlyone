@@ -72,7 +72,7 @@ public class Coin implements Comparable<Coin>,Valuable {
      */
     @Override
     public String toString() {
-      return (value >= 1 ? String.format("%.0f-%s (coin)",value,currency) : String.format("%.2f-%s (coin)",value,currency));
+      return (value >= 1 ? String.format("%.0f-%s(coin)",value,currency) : String.format("%.2f-%s(coin)",value,currency));
     }
 
 }

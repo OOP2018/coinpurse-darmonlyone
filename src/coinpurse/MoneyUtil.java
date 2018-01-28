@@ -18,12 +18,13 @@ public class MoneyUtil {
         valuable.add(new BankNote(200,"Bath"));
         valuable.add( new BankNote(0.5, "Bath"));
         valuable.add( new Coin(0.25, "Bath"));
-        valuable.add( new Coin(1.0, "Bath"));
+        valuable.add( new Coin(1.0, "Dollar"));
         valuable.add( new Coin(2.0, "Dollar"));
         valuable.add( new Coin(3.0, "Bath"));
         valuable.add( new Coin(4.0, "Bath"));
         valuable.add( new Coin(5.0, "Rubie"));
         printCheckPurse(filterByCurrency(valuable,"Bath"));
+        sortPurse(valuable);
     }
 
     /**
@@ -72,12 +73,8 @@ public class MoneyUtil {
      * @param valuable List of Valuable
      */
     public static void sortPurse(List<Valuable> valuable){
-        valuable.sort(new Comparator<Valuable>() {
-            @Override
-            public int compare(Valuable o1, Valuable o2) {
-                return o1.getValue() == o2.getValue() ? 0 : o1.getValue() > o2.getValue() ? 1 : -1;
-            }
-        });
+        Comparator<Valuable> comp = new ValueComparator();
+        Collections.sort(valuable,comp);
         System.out.println("After sort ");
         for (Valuable coin: valuable){
             System.out.print(coin + " ");

@@ -66,7 +66,7 @@ public class BankNote implements Valuable{
      */
     @Override
     public String toString() {
-        return String.format("%.0f-%s (note) [%d]",value,currency,serialNumber);
+        return String.format("%.0f-%s(note) [%d]",value,currency,serialNumber);
     }
 
 }

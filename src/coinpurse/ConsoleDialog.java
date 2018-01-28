@@ -82,7 +82,7 @@ public class ConsoleDialog {
         Scanner scanline = new Scanner(inline);
         while( scanline.hasNextDouble() ) {
             double value = scanline.nextDouble();
-            Valuable valuable = value <= 10 ? makeMoneyCoin(value) : makeMoneyNote(value);
+            Valuable valuable = makeMoney(value);
             System.out.printf("Deposit %s... ", valuable.toString() );
             boolean ok = purse.insert(valuable);
             System.out.println( (ok? "ok" : "FAILED") );
@@ -123,12 +123,8 @@ public class ConsoleDialog {
         scanline.close();
     }
 
-    /** Make a Coin using requested value. */
-    private Valuable makeMoneyCoin(double value) {
-        return 	new Coin(value,CURRENCY);
-    }
-    /** Make a Banknote using requested value. */
-    private Valuable makeMoneyNote(double value){
-        return new BankNote(value,CURRENCY);
+    /** Make a Coin and Banknote using requested value. */
+    private Valuable makeMoney(double value) {
+        return value <= 10 ? new Coin(value,CURRENCY) : new BankNote(value,CURRENCY);
     }
 }

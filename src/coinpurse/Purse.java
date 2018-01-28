@@ -113,12 +113,8 @@ public class Purse {
 		// Did we get the full amount?
 		// This code assumes you decrease amount each time you remove a coin and bank note.
     	// Your code might use some other variable for the remaining amount to withdraw.
-        money.sort(new Comparator<Valuable>() {
-            @Override
-            public int compare(Valuable o1, Valuable o2) {
-                return o1.getValue() == o2.getValue() ? 0 : o1.getValue() > o2.getValue() ? 1 : -1;
-            }
-        });
+        Comparator<Valuable> comp = new ValueComparator();
+        money.sort(comp);
         List<Valuable> withDraw = new ArrayList<Valuable>();
         double amountNeededToWithdraw = amount;
         for (int i = money.size()-1 ; i >= 0 ; i--) {
