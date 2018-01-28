@@ -5,7 +5,7 @@ package coinpurse;
  * @author Manusporn Fukkham
  */
 public class BankNote implements Valuable{
-
+    /**next serial number of BankNote*/
     private static long nextSerialNumber = 1000000;
     /**amount of the money*/
     private double value;
