@@ -23,7 +23,7 @@ public class ValueComparator implements Comparator<Valuable> {
             return a.getValue() == b.getValue() ? 0 : a.getValue() > b.getValue() ? 1 : -1;
         } else {
             //Logical; first alphabet A - Z : low - high currency value
-            if (a.getCurrency().charAt(0) > b.getCurrency().charAt(0)) {
+            if (a.getCurrency().hashCode() > b.getCurrency().hashCode()) {
                 return 1;
             } else {
                 return -1;
