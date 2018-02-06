@@ -14,6 +14,8 @@ import java.util.ArrayList;
  *  @author Manusporn Fukkham
  */
 public class Purse {
+    /**Comparator of valuable**/
+    private Comparator<Valuable> comp = new ValueComparator();
     /** Collection of objects in the purse. */
     private List<Valuable> money;
     /** Capacity is maximum number of items the purse can hold.
@@ -96,7 +98,6 @@ public class Purse {
         if(amount < 0 )return null;
 		// This code assumes you decrease amount each time you remove a coin and bank note.
     	// Your code might use some other variable for the remaining amount to withdraw.
-        Comparator<Valuable> comp = new ValueComparator();
         money.sort(comp);
         List<Valuable> withDraw = new ArrayList<Valuable>();
         double amountNeededToWithdraw = amount;
