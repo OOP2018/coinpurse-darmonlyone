@@ -40,7 +40,7 @@ public class BankNote implements Valuable{
     /**
      * @return return the serial number
      */
-    public long getSerialNumber() {
+    public long getSerial() {
         return serialNumber;
     }
 
