@@ -94,24 +94,7 @@ public class Purse {
      */
     public Valuable[] withdraw( double amount ) {
         if(amount < 0 )return null;
-	   /*
-		* See lab sheet for outline of a solution, 
-		* or devise your own solution.
-		* The idea is to be greedy.
-		* Try to withdraw the largest valuable possible.
-		* Each time you choose a valuable as a candidate for
-		* withdraw, add it to a temporary list and
-		* decrease the amount (remainder) to withdraw.
-		* 
-		* If you reach a point where amountNeededToWithdraw == 0
-		* then you found a solution!
-		* Now, use the temporary list to remove valuable
-		* from the money list, and return the temporary
-		* list (as an array).
-		*/
-
-		// Did we get the full amount?
-		// This code assumes you decrease amount each time you remove a coin and bank note.
+	// This code assumes you decrease amount each time you remove a coin and bank note.
     	// Your code might use some other variable for the remaining amount to withdraw.
         Comparator<Valuable> comp = new ValueComparator();
         money.sort(comp);
