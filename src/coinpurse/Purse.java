@@ -97,6 +97,7 @@ public class Purse {
     public Valuable[] withdraw( double amount ) {
         if(amount < 0 )return null;
 		// This code assumes you decrease amount each time you remove a coin and bank note.
+	    // This code assumes you decrease amount each time you remove a coin and bank note.
     	// Your code might use some other variable for the remaining amount to withdraw.
         money.sort(comp);
         List<Valuable> withDraw = new ArrayList<Valuable>();
