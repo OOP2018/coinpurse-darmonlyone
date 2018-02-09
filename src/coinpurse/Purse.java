@@ -96,19 +96,11 @@ public class Purse {
 	 *    or null if cannot withdraw requested amount.
      */
     public Valuable[] withdraw( double amount ) {
-        List<Valuable> filter =  MoneyUtil.filterByCurrency(money,"Baht");
-        List<Valuable> keepMoney = money;
-        for (Valuable remover : filter)
-            keepMoney.remove(remover);
-        money = filter;
-        Valuable[] moneyArray = withdraw(new Money(amount,"Baht"));
-        for (Valuable keep : keepMoney)
-            money.add(keep);
-        return moneyArray;
+       return withdraw(new Money(amount,"Baht"));
 	}
 
     /**
-     * Withdraw amount, using only otems that have the same
+     * Withdraw amount, using only items that have the same
      * currency as parameter(amount)
      * @param amount Valuable of withdraw
      * @return array of valuable objects for money withdrawn,
