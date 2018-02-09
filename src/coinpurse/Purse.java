@@ -90,42 +90,54 @@ public class Purse {
      *  Withdraw the requested amount of money.
      *  Return an array of valuable withdrawn from purse,
      *  or return null if cannot withdraw the amount requested.
+     *  Withdraw amount which is "Baht".
      *  @param amount is the amount to withdraw
      *  @return array of valuable objects for money withdrawn,
 	 *    or null if cannot withdraw requested amount.
      */
     public Valuable[] withdraw( double amount ) {
-        if(amount < 0 )return null;
-		// This code assumes you decrease amount each time you remove a coin and bank note.
-	    // This code assumes you decrease amount each time you remove a coin and bank note.
-    	// Your code might use some other variable for the remaining amount to withdraw.
-        money.sort(comp);
-        List<Valuable> withDraw = new ArrayList<Valuable>();
-        double amountNeededToWithdraw = amount;
-        for (int i = money.size()-1 ; i >= 0 ; i--) {
-            if (amountNeededToWithdraw != 0) {
-                if ((amountNeededToWithdraw - money.get(i).getValue() >= 0)){
-                    amountNeededToWithdraw -= money.get(i).getValue();
-                    withDraw.add(money.get(i));
-                }
-            }
-        }
-        //removing withDraw money form purse
-        for (Valuable valuable : withDraw){
-            money.remove(valuable);
-        }
-		// Remove the valuable you want to withdraw from purse,
-		// and return them as an array.
-		// Use list.toArray( array[] ) to copy a list into an array.
-		// toArray returns a reference to the array itself.
-        Valuable[] moneyArray = new Valuable[withDraw.size()];
-        if (amountNeededToWithdraw > 0 || withDraw.isEmpty()){
-            money.addAll(withDraw);
-            return null;
-        }
-        return withDraw.toArray(moneyArray);
+        List<Valuable> filter =  MoneyUtil.filterByCurrency(money,"Baht");
+        List<Valuable> keepMoney = money;
+        for (Valuable remover : filter)
+            keepMoney.remove(remover);
+        money = filter;
+        Valuable[] moneyArray = withdraw(new Money(amount,"Baht"));
+        for (Valuable keep : keepMoney)
+            money.add(keep);
+        return moneyArray;
 	}
-  
+
+    /**
+     * Withdraw amount, using only otems that have the same
+     * currency as parameter(amount)
+     * @param amount Valuable of withdraw
+     * @return array of valuable objects for money withdrawn,
+     *    or null if cannot withdraw requested amount.
+     */
+     public Valuable[] withdraw(Valuable amount){
+         if(amount.getValue() < 0 )return null;
+         money.sort(comp);
+         List<Valuable> withDraw = new ArrayList<>();
+         double amountNeededToWithdraw = amount.getValue();
+         for (int i = money.size()-1 ; i >= 0 ; i--) {
+             if (amountNeededToWithdraw != 0 && money.get(i).getCurrency().equalsIgnoreCase(amount.getCurrency())) {
+                 if ((amountNeededToWithdraw - money.get(i).getValue() >= 0)){
+                     amountNeededToWithdraw -= money.get(i).getValue();
+                     withDraw.add(money.get(i));
+                 }
+             }
+         }
+         for (Valuable valuable : withDraw){
+             money.remove(valuable);
+
+         }
+         Valuable[] moneyArray = new Valuable[withDraw.size()];
+         if (amountNeededToWithdraw > 0 || withDraw.isEmpty()){
+             money.addAll(withDraw);
+             return null;
+         }
+         return withDraw.toArray(moneyArray);
+    }
     /** 
      * toString returns a string description of the purse contents.
      * It can return whatever is a useful description.

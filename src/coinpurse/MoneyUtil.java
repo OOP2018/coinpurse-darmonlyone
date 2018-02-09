@@ -24,6 +24,7 @@ public class MoneyUtil {
         valuable.add( new Coin(4.0, "Bath"));
         valuable.add( new Coin(5.0, "Rubie"));
         printCheckPurse(filterByCurrency(valuable,"Bath"));
+        printPurseHave(valuable);
         sortPurse(valuable);
     }
 
@@ -47,7 +48,6 @@ public class MoneyUtil {
      * @return List of Valuable that filter the currency
      */
     public static List<Valuable> filterByCurrency(List<Valuable> valuable, String currency){
-        printPurseHave(valuable);
         List<Valuable> valuables = new ArrayList<>();
         for (int i = 0 ; i < valuable.size() ; i++){
             if (valuable.get(i).getCurrency().equals(currency))

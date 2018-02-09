@@ -23,7 +23,7 @@ import org.junit.Test;
 public class PurseTest {
 	/** tolerance for comparing two double values */
 	private static final double TOL = 1.0E-6;
-	private static final String CURRENCY = "BTC";
+	private static final String CURRENCY = "Baht";
 	
     /**
      * Sets up the test fixture.
@@ -106,7 +106,7 @@ public class PurseTest {
 		int capacity = 5;
 		double value = 10.0;
 		Purse purse = new Purse(capacity);
-		Coin coin = new Coin(value, "THB");
+		Coin coin = new Coin(value, "Baht");
 		assertTrue( purse.insert(coin) );
 		assertTrue( purse.insert(coin) ); // should be allowed
 		assertTrue( purse.insert(coin) ); // should be allowed
