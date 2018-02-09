@@ -7,14 +7,14 @@ package coinpurse;
 public class PurseUtil {
     private static String CURRENCY = "Baht";
 
-    public static Valuable makeMoney(double value){
+    public static Money makeMoney(double value){
         return value < 20 ? new Coin(value,CURRENCY) : new BankNote(value,CURRENCY);
     }
 
     public static void main(String[] args) {
         Purse purse,purse2,purse3;
 
-        purse = insertPurse(makeMoney(10),makeMoney(20),makeMoney(10),makeMoney(10),makeMoney(5),makeMoney(200));
+        purse = insertPurse(makeMoney(10),makeMoney(20),makeMoney(10),makeMoney(10),makeMoney(5),makeMoney(200),new Coin(5,"dollar"));
         purse2 = insertPurse(makeMoney(20),makeMoney(0.25),makeMoney(5),makeMoney(56),makeMoney(10),makeMoney(1));
         purse3 = insertPurse(makeMoney(1),makeMoney(2),makeMoney(5),makeMoney(10),makeMoney(15),makeMoney(20),makeMoney(50));
 
@@ -23,11 +23,11 @@ public class PurseUtil {
         System.out.println(purse2);
         System.out.println(purse3);
 
-        purse.withdraw(55);
+        purse.withdraw(new Coin(5,"Dollar"));
         purse2.withdraw(35.25);
         purse3.withdraw(58);
 
-        double[] expect = {200,57,45};
+        double[] expect = {255,57,45};
 
         System.out.println("After Withdraw");
         System.out.print(purse);
