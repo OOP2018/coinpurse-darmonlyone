@@ -23,7 +23,7 @@ public class PurseUtil {
         System.out.println(purse2);
         System.out.println(purse3);
 
-        purse.withdraw(new Coin(5,"Dollar"));
+        purse.withdraw(new Money(5,"Dollar"));
         purse2.withdraw(35.25);
         purse3.withdraw(58);
 
