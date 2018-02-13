@@ -1,6 +1,6 @@
 package coinpurse;
 
-public class Money implements Valuable,Comparable<Valuable>{
+public class Money implements Valuable{
     /**amount of the money*/
     private double value;
     /**brand of value*/

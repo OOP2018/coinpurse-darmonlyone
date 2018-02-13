@@ -108,21 +108,25 @@ public class Purse {
      */
      public Valuable[] withdraw(Valuable amount){
          if(amount.getValue() < 0 )return null;
+
          money.sort(comp);
+         Collections.reverse(money);
+
          List<Valuable> withDraw = new ArrayList<>();
          double amountNeededToWithdraw = amount.getValue();
-         for (int i = money.size()-1 ; i >= 0 ; i--) {
-             if (amountNeededToWithdraw != 0 && money.get(i).getCurrency().equalsIgnoreCase(amount.getCurrency())) {
-                 if ((amountNeededToWithdraw - money.get(i).getValue() >= 0)){
-                     amountNeededToWithdraw -= money.get(i).getValue();
-                     withDraw.add(money.get(i));
+         for (Valuable monies : money){
+             if (amountNeededToWithdraw != 0 && monies.getCurrency().equalsIgnoreCase(amount.getCurrency())) {
+                 if ((amountNeededToWithdraw - monies.getValue() >= 0)){
+                     amountNeededToWithdraw -= monies.getValue();
+                     withDraw.add(monies);
                  }
              }
          }
+
          for (Valuable valuable : withDraw){
              money.remove(valuable);
-
          }
+
          Valuable[] moneyArray = new Valuable[withDraw.size()];
          if (amountNeededToWithdraw > 0 || withDraw.isEmpty()){
              money.addAll(withDraw);

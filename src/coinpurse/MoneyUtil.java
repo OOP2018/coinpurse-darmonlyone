@@ -49,9 +49,9 @@ public class MoneyUtil {
      */
     public static List<Valuable> filterByCurrency(List<Valuable> valuable, String currency){
         List<Valuable> valuables = new ArrayList<>();
-        for (int i = 0 ; i < valuable.size() ; i++){
-            if (valuable.get(i).getCurrency().equals(currency))
-                valuables.add(valuable.get(i));
+        for (Valuable valuable1 : valuable){
+            if (valuable1.getCurrency().equals(currency))
+                valuables.add(valuable1);
         }
         return valuables;
     }
