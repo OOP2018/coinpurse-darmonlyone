@@ -47,10 +47,6 @@ public class Money implements Valuable{
      * @return currency of the value
      */
     public String getCurrency() {
-        return countryCurrency;
-    }
-
-    public String getActualCurrency() {
         return this.currency;
     }
 

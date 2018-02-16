@@ -29,7 +29,7 @@ public class MoneyFactoryDemo {
     }
 
     /**
-     * Testing method for Factories
+     * Testing method for Factories of Double
      * @param amount of value to make
      * @param expect an expect value to be
      */
@@ -44,6 +44,11 @@ public class MoneyFactoryDemo {
         }
 
     }
+    /**
+     * Testing method for Factories of String
+     * @param amount of value to make
+     * @param expect an expect value to be
+     */
     public static void testString(String[] amount, double[] expect, int num){
         MoneyFactory factory = MoneyFactory.getInstance();
         Valuable[] expects = setExpectMoney(num < 0 ? "Baht" : "Ringgit" , expect);

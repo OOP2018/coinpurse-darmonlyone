@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *  A Valuable purse contains money.
  *  You can insert coins and banknote, withdraw money, check the balance,
  *  and check if the purse is full.
- *  
+ *
  *  @author Manusporn Fukkham
  */
 public class Purse {
@@ -22,8 +22,8 @@ public class Purse {
      *  Capacity is set when the purse is created and cannot be changed.
      */
     private final int capacity;
-    
-    /** 
+
+    /**
      *  Create a purse with a specified capacity.
      *  @param capacity is maximum number of money you can put in purse.
      */
@@ -38,8 +38,8 @@ public class Purse {
      * @return the number of money in the purse
      */
     public int count() { return money.size(); }
-    
-    /** 
+
+    /**
      *  Get the total value of all items in the purse.
      *  @return the total value of items in the purse.
      */
@@ -51,16 +51,16 @@ public class Purse {
         return balance;
 	}
 
-    
+
     /**
      * Return the capacity of the money in purse.
      * @return the capacitym
      */
-    public int getCapacity() { 
+    public int getCapacity() {
 		return capacity;
 	}
-    
-    /** 
+
+    /**
      *  Test whether the purse is full.
      *  The purse is full if number of items in purse equals
      *  or greater than the purse capacity.
@@ -70,7 +70,7 @@ public class Purse {
         return money.size() == capacity;
     }
 
-    /** 
+    /**
      * Insert a money into the purse.
      * The money is only inserted if the purse has space for it
      * and the money has positive value.  No worthless money!
@@ -85,8 +85,8 @@ public class Purse {
         }
         else return false;
     }
-    
-    /**  
+
+    /**
      *  Withdraw the requested amount of money.
      *  Return an array of valuable withdrawn from purse,
      *  or return null if cannot withdraw the amount requested.
@@ -108,7 +108,6 @@ public class Purse {
      */
      public Valuable[] withdraw(Valuable amount){
          if(amount.getValue() < 0 )return null;
-
          money.sort(comp);
          Collections.reverse(money);
 
@@ -134,7 +133,8 @@ public class Purse {
          }
          return withDraw.toArray(moneyArray);
     }
-    /** 
+
+    /**
      * toString returns a string description of the purse contents.
      * It can return whatever is a useful description.
      */
