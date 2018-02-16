@@ -14,7 +14,6 @@ public abstract class MoneyFactory{
      * @return Money Factory to use
      */
     public static MoneyFactory getInstance(){
-        if (moneyFactory == null) moneyFactory = new ThaiMoneyFactory();
         return moneyFactory;
     }
 

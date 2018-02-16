@@ -19,6 +19,6 @@ public class ThaiMoneyFactory extends MoneyFactory {
         if (value == 0.25 || value  == 0.50) return new Coin(value,CURRENCY);
         else if (value == 1 || value == 2 || value == 5 || value == 10) return new Coin(value,CURRENCY);
         else if (value == 20 || value == 50 || value == 100 || value == 500 || value == 1000) return new BankNote(value,CURRENCY);
-        else throw new IllegalArgumentException("Thailand doesn't have this value not or coin");
+        else throw new IllegalArgumentException("Thailand doesn't have this value banknote or coin");
     }
 }
