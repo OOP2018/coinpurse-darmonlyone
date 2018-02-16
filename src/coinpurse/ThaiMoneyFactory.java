@@ -12,7 +12,7 @@ public class ThaiMoneyFactory extends MoneyFactory {
      * Constructor of ThaiMoneyFactory
      */
     public ThaiMoneyFactory(){
-        BankNote.setNextSerialNumber(100000);
+        BankNote.setNextSerialNumber(1000000);
         Money.setCountryCurrency(CURRENCY);
     }
     /**

@@ -32,7 +32,9 @@ public class BankNote extends Money{
      */
     @Override
     public String toString() {
-        return String.format("%.0f-%s(note) [%d]",getValue(),getCurrency(),serialNumber);
+        String toS = String.format("%.0f-%s(note) [%d]",getValue(),getCurrency(),serialNumber);
+        setCurrency(getCountryCurrency());
+        return toS;
     }
 
     /**

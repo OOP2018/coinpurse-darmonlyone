@@ -9,8 +9,10 @@ import org.junit.Test;
  * @author Manusporn Fukkham
  */
 public class MoneyFactoryTest {
-    private String BAHT = "Baht";
-    private String RINGGIT = "Ringgit";
+    /**thai currency*/
+    private final String BAHT = "Baht";
+    /**malay currency*/
+    private final String RINGGIT = "Ringgit";
 
     /**
      * Sets up the test fixture.
