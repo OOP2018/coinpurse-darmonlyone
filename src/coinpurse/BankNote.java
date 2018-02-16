@@ -32,9 +32,13 @@ public class BankNote extends Money{
      */
     @Override
     public String toString() {
-        return String.format("%.0f-%s(note) [%d]",getValue(),getCurrency(),serialNumber);
+        return String.format("%.0f-%s(note) [%d]",getValue(),getActualCurrency(),serialNumber);
     }
 
+    /**
+     * too set new SerialNumber for new Factory
+     * @param nextSerialNumber start number of SerialNumber
+     */
     public static void setNextSerialNumber(long nextSerialNumber) {
         BankNote.nextSerialNumber = nextSerialNumber;
     }

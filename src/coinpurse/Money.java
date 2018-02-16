@@ -5,6 +5,8 @@ public class Money implements Valuable{
     private double value;
     /**brand of value*/
     private String currency;
+    /** actual currency*/
+    private static String countryCurrency;
 
     public Money(double value , String currency){
         if(value < 0 ) throw new IllegalArgumentException("The value must not be negative.");
@@ -45,7 +47,19 @@ public class Money implements Valuable{
      * @return currency of the value
      */
     public String getCurrency() {
-        return currency;
+        return countryCurrency;
+    }
+
+    public String getActualCurrency() {
+        return this.currency;
+    }
+
+    /**
+     * set Country currency
+     * @param actualCurrency
+     */
+    public static void setCountryCurrency(String actualCurrency) {
+        countryCurrency = actualCurrency;
     }
 
     /**

@@ -23,7 +23,7 @@ public class Coin extends Money {
      */
     @Override
     public String toString() {
-      return (getValue() >= 1 ? String.format("%.0f-%s(coin)",getValue(),getCurrency()) : String.format("%.2f-%s(coin)",getValue(),getCurrency()));
+      return (getValue() >= 1 ? String.format("%.0f-%s(coin)",getValue(),getActualCurrency()) : String.format("%.2f-%s(coin)",getValue(),getCurrency()));
     }
 
 }
