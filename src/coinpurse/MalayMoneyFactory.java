@@ -9,6 +9,12 @@ public class MalayMoneyFactory extends MoneyFactory {
     private final String CURRENCY = "Ringgit";
 
     /**
+     * Constructor of MalayMoneyFactory
+     */
+    public MalayMoneyFactory(){
+        BankNote.setNextSerialNumber(1000000);
+    }
+    /**
      * create new money object in the local currency.
      * If the value is not a valid currency amount, then throw
      * IllegalArgumentException.

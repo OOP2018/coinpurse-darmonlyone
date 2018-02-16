@@ -35,4 +35,7 @@ public class BankNote extends Money{
         return String.format("%.0f-%s(note) [%d]",getValue(),getCurrency(),serialNumber);
     }
 
+    public static void setNextSerialNumber(long nextSerialNumber) {
+        BankNote.nextSerialNumber = nextSerialNumber;
+    }
 }

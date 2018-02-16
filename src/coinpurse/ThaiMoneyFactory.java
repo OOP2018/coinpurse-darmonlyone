@@ -7,6 +7,13 @@ package coinpurse;
 public class ThaiMoneyFactory extends MoneyFactory {
     /** Thai Currency */
     private final String CURRENCY = "Baht";
+
+    /**
+     * Constructor of ThaiMoneyFactory
+     */
+    public ThaiMoneyFactory(){
+        BankNote.setNextSerialNumber(100000);
+    }
     /**
      * create new money object in the local currency.
      * If the value is not a valid currency amount, then throw
