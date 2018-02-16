@@ -48,4 +48,11 @@ public class Money implements Valuable{
         return currency;
     }
 
+    /**
+     * Set a Cuurency
+     * @param currency to set currency
+     */
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }
