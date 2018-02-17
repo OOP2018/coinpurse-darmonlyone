@@ -13,7 +13,10 @@ public class MoneyFactoryTest {
     private final String BAHT = "Baht";
     /**malay currency*/
     private final String RINGGIT = "Ringgit";
-
+    /**not a value money factory can make as double*/
+    private double[] notMoney = {0.025,0.25,0.11,1.5,3,4,11,99,101,99,9999,22.22,20.0002};
+    /**not a value money factory can make as String*/
+    private String[] notMoneyString = {"0.0255","0.25a","0.11","1.5","3","4","11","22.22","20.0002","123","asd","damn"};
     /**
      * Sets up the test fixture.
      * Called before every test method.
@@ -57,6 +60,20 @@ public class MoneyFactoryTest {
             return false;
         }
     }
+    /** run test method as double*/
+    private void run(Object[] objects, boolean doubles){
+        for (int i = 0, j = 0; doubles ? (j < notMoney.length) : (j < notMoneyString.length);) {
+            if (i == objects.length)j++;
+            if (j == 0){
+                if (doubles) assertTrue(testMakeMoney((Double) objects[i]));
+                else assertTrue(testMakeMoney((String) objects[i]));
+                i++;
+            } else {
+                if (doubles) assertFalse(testMakeMoney(notMoney[j-1]));
+                else assertFalse(testMakeMoney(notMoneyString[j-1]));
+            }
+        }
+    }
     /** test make thai monet by createMoney() with Money();*/
     @Test
     public void testCreateThaiMoney(){
@@ -71,52 +88,20 @@ public class MoneyFactoryTest {
         assertEquals(new BankNote(500,BAHT),m.createMoney(500));
         assertEquals(new BankNote(1000,BAHT),m.createMoney("1000"));
     }
-    /** test make thai money with double*/
+
+    /** test make thai money,, with double*/
     @Test
     public void testMakeThaiMoneyDouble(){
         MoneyFactory.setFactory(new ThaiMoneyFactory());
-
-        assertTrue(testMakeMoney(1));
-        assertTrue(testMakeMoney(2));
-        assertTrue(testMakeMoney(5));
-        assertTrue(testMakeMoney(10));
-        assertTrue(testMakeMoney(20));
-        assertTrue(testMakeMoney(100));
-        assertTrue(testMakeMoney(500*2));
-        assertTrue(testMakeMoney(1000/2));
-
-        assertFalse(testMakeMoney(0.25));
-        assertFalse(testMakeMoney(0.5));
-        assertFalse(testMakeMoney(0.1));
-        assertFalse(testMakeMoney(0.35));
-        assertFalse(testMakeMoney(3));
-        assertFalse(testMakeMoney(4));
-        assertFalse(testMakeMoney(800));
-        assertFalse(testMakeMoney(1001));
+        Double[] thaiMoney = {1.0,2.0,5.0,10.0,20.0,50.0,100.0,500.0,1000.0};
+        run(thaiMoney,true);
     }
     /** test make thai money with String*/
     @Test
     public void testMakeThaiMoneyString(){
         MoneyFactory.setFactory(new ThaiMoneyFactory());
-
-        assertTrue(testMakeMoney("1"));
-        assertTrue(testMakeMoney("2"));
-        assertTrue(testMakeMoney("5"));
-        assertTrue(testMakeMoney("10"));
-        assertTrue(testMakeMoney("20"));
-        assertTrue(testMakeMoney("100"));
-        assertTrue(testMakeMoney("500"));
-        assertTrue(testMakeMoney("1000"));
-
-        assertFalse(testMakeMoney("damn"));
-        assertFalse(testMakeMoney("0.25"));
-        assertFalse(testMakeMoney("0.5"));
-        assertFalse(testMakeMoney("0.1"));
-        assertFalse(testMakeMoney("0.35"));
-        assertFalse(testMakeMoney("3"));
-        assertFalse(testMakeMoney("4s"));
-        assertFalse(testMakeMoney("800"));
-        assertFalse(testMakeMoney("1021"));
+        String[] thaiMoney = {"1","2","5","10","20","50","100","500","1000"};
+        run(thaiMoney,false);
     }
 
     /** test make malay monet by createMoney() with Money();*/
@@ -141,48 +126,15 @@ public class MoneyFactoryTest {
     @Test
     public void testMakeMalayMoneyDouble(){
         MoneyFactory.setFactory(new MalayMoneyFactory());
-        assertTrue(testMakeMoney(0.05));
-        assertTrue(testMakeMoney(0.10));
-        assertTrue(testMakeMoney(0.2));
-        assertTrue(testMakeMoney(0.50));
-        assertTrue(testMakeMoney(1));
-        assertTrue(testMakeMoney(2));
-        assertTrue(testMakeMoney(5));
-        assertTrue(testMakeMoney(10));
-        assertTrue(testMakeMoney(50));
-        assertTrue(testMakeMoney(100));
-        assertTrue(testMakeMoney(100/5));
-
-        assertFalse(testMakeMoney(0.11));
-        assertFalse(testMakeMoney(0.35));
-        assertFalse(testMakeMoney(3));
-        assertFalse(testMakeMoney(4));
-        assertFalse(testMakeMoney(800));
-        assertFalse(testMakeMoney(99));
+        Double[] malayMoney = {0.05,0.10,0.20,0.50,1.0,2.0,5.0,10.0,20.0,50.0,100.0};
+        run(malayMoney,true);
     }
     /** test make malay money with String*/
     @Test
     public void testMakeMalayMoneyString(){
         MoneyFactory.setFactory(new MalayMoneyFactory());
-        assertTrue(testMakeMoney("0.05"));
-        assertTrue(testMakeMoney("0.10"));
-        assertTrue(testMakeMoney("0.2"));
-        assertTrue(testMakeMoney("0.50"));
-        assertTrue(testMakeMoney("1"));
-        assertTrue(testMakeMoney("2"));
-        assertTrue(testMakeMoney("5"));
-        assertTrue(testMakeMoney("10"));
-        assertTrue(testMakeMoney("50"));
-        assertTrue(testMakeMoney("20"));
-        assertTrue(testMakeMoney("100"));
-
-        assertFalse(testMakeMoney("false"));
-        assertFalse(testMakeMoney("0.12"));
-        assertFalse(testMakeMoney("0.35"));
-        assertFalse(testMakeMoney("as3"));
-        assertFalse(testMakeMoney("4.0"));
-        assertFalse(testMakeMoney("501"));
-        assertFalse(testMakeMoney("102"));
+        String[] malayMoney = {"0.05","0.10","0.20","0.50","1","2","5","10","20","50","100"};
+        run(malayMoney,false);
     }
     /** test toString and currency */
     @Test

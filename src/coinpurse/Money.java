@@ -52,7 +52,7 @@ public class Money implements Valuable{
 
     /**
      * set Country currency
-     * @param actualCurrency
+     * @param actualCurrency for change country currency
      */
     public static void setCountryCurrency(String actualCurrency) {
         countryCurrency = actualCurrency;
