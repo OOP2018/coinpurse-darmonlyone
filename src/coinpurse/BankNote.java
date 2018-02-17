@@ -9,15 +9,17 @@ public class BankNote extends Money{
     private static long nextSerialNumber = 1000000;
     /**serial of the note*/
     private long serialNumber;
-
+    /** currency of banknote that its take in*/
+    private String valueCurrency;
     /**
      * Initialize new BankNote object
      * @param value amount of the money
      * @param currency brand of value
      */
     public BankNote(double value, String currency ){
-        super(value,currency);
+        super(value,getCountryCurrency() == null ? currency : getCountryCurrency());
         this.serialNumber = nextSerialNumber++;
+        valueCurrency = currency;
     }
     /**
      * @return return the serial number
@@ -39,8 +41,6 @@ public class BankNote extends Money{
      */
     @Override
     public String toString() {
-        String toS = String.format("%.0f-%s(note) [%d]",getValue(),getCurrency(),serialNumber);
-        if (getCountryCurrency() != null)setCurrency(getCountryCurrency());
-        return toS;
+        return String.format("%.0f-%s(note) [%d]",getValue(),valueCurrency,serialNumber);
     }
 }

@@ -5,15 +5,16 @@ package coinpurse;
  * @author Manusporn Fukkham
  */
 public class Coin extends Money {
-
-
+    /** currency of coin that its take in*/
+    private String valueCurrency;
     /**
      * Initialize new Coins object
      * @param value amount of the money
      * @param currency brand of value
      */
     public Coin(double value , String currency){
-        super(value, currency);
+        super(value,getCountryCurrency()==null ? currency : getCountryCurrency());
+        valueCurrency = currency;
     }
 
     /**
@@ -22,9 +23,7 @@ public class Coin extends Money {
      */
     @Override
     public String toString() {
-        String toS = (getValue() >= 1 ? String.format("%.0f-%s(coin)",getValue(),getCurrency()) : String.format("%.2f-%s(coin)",getValue(),getCurrency()));
-        if (getCountryCurrency() != null)setCurrency(getCountryCurrency());
-      return toS;
+        return (getValue() >= 1 ? String.format("%.0f-%s(coin)",getValue(),valueCurrency) : String.format("%.2f-%s(coin)",getValue(),getCurrency()));
     }
 
 }

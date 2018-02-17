@@ -184,22 +184,57 @@ public class MoneyFactoryTest {
         assertFalse(testMakeMoney("501"));
         assertFalse(testMakeMoney("102"));
     }
+    /** test toString and currency */
     @Test
     public void testCollectToStringCurrency(){
         MoneyFactory.setFactory(new MalayMoneyFactory());
         MoneyFactory factory = MoneyFactory.getInstance();
+
         Coin n1 = (Coin) factory.createMoney(0.20);
-        Coin n2 = (Coin) factory.createMoney("0.05");
-        Coin n3 = (Coin) factory.createMoney("0.10");
-        Coin n4 = (Coin) factory.createMoney(0.5);
         assertEquals("20-Sen(coin)",n1.toString());
-        assertEquals("5-Sen(coin)",n2.toString());
-        assertEquals("10-Sen(coin)",n3.toString());
-        assertEquals("50-Sen(coin)",n4.toString());
         assertEquals(RINGGIT,n1.getCurrency());
+
+        Coin n2 = (Coin) factory.createMoney("0.05");
+        assertEquals("5-Sen(coin)",n2.toString());
         assertEquals(RINGGIT,n2.getCurrency());
+
+        Coin n3 = (Coin) factory.createMoney("0.10");
+        assertEquals("10-Sen(coin)",n3.toString());
         assertEquals(RINGGIT,n3.getCurrency());
+
+        Coin n4 = (Coin) factory.createMoney(0.5);
+        assertEquals("50-Sen(coin)",n4.toString());
         assertEquals(RINGGIT,n4.getCurrency());
+
+    }
+    /** test currency without use toString*/
+    @Test
+    public void testCollectCurrency(){
+        MoneyFactory.setFactory(new MalayMoneyFactory());
+        MoneyFactory factory = MoneyFactory.getInstance();
+        Valuable n1 = factory.createMoney(0.20);
+        assertEquals(RINGGIT,n1.getCurrency());
+
+        Valuable n2 =  factory.createMoney("0.05");
+        assertEquals(RINGGIT,n2.getCurrency());
+
+        Valuable n3 =  factory.createMoney("0.10");
+        assertEquals(RINGGIT,n3.getCurrency());
+
+        Valuable n4 =  factory.createMoney(0.5);
+        assertEquals(RINGGIT,n4.getCurrency());
+
+        Valuable n5 = factory.createMoney(1);
+        assertEquals(RINGGIT,n5.getCurrency());
+
+        Valuable n6 =  factory.createMoney("2");
+        assertEquals(RINGGIT,n6.getCurrency());
+
+        Valuable n7 =  factory.createMoney("50");
+        assertEquals(RINGGIT,n7.getCurrency());
+
+        Valuable n8 =  factory.createMoney(100);
+        assertEquals(RINGGIT,n8.getCurrency());
 
     }
 }
