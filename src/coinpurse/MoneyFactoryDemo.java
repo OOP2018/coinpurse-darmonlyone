@@ -14,8 +14,8 @@ public class MoneyFactoryDemo {
         System.out.println("*------Thai Factory------*");
         setMoneyFactory(new ThaiMoneyFactory());
         double[] thaiAmount = {0.05,0.25,0.5,0.2,1,2,3,5,10,20,50,100,200,500,1000};
-        String[] thaiAmountString = {"0.05","0.25","0.5","0.2","1","2","3","5","10","20","50","100","200","500","1000"};
-        double[] thaiExpect = {0.25,0.50,1,2,5,10,20,50,100,500,1000};
+        String[] thaiAmountString = {"1","2","3","5","10","20","50","100","200","500","1000"};
+        double[] thaiExpect = {1,2,5,10,20,50,100,500,1000};
         testDouble(thaiAmount,thaiExpect,-1);
         testString(thaiAmountString,thaiExpect,-1);
 
@@ -40,7 +40,7 @@ public class MoneyFactoryDemo {
         System.out.println("Add Double"+Arrays.toString(amount)+" to the factory");
         for (int i = 0 ; i < valuables.length ; i++){
             if (valuables[i] != null)
-                System.out.println((expectCehck(expects[i], valuables[i])) ? " : true" : " : false");
+                System.out.println((expectCheck(expects[i], valuables[i])) ? " : true" : " : false");
         }
 
     }
@@ -63,14 +63,14 @@ public class MoneyFactoryDemo {
         int j = 0;
         for (int i = 0 ; i < valuables.length ; i++){
             if (valuables[i] != null) {
-                System.out.println((expectCehck(expects[j], valuables[i])) ? " : true" : " : false");
+                System.out.println((expectCheck(expects[j], valuables[i])) ? " : true" : " : false");
                 j++;
             }
         }
     }
 
     /** Check the collect of expect and actual*/
-    public static boolean expectCehck(Valuable expect, Valuable actual){
+    public static boolean expectCheck(Valuable expect, Valuable actual){
         System.out.printf("Expect: %-30s Actual: %-30s", expect, actual);
         return expect.equals(actual);
     }

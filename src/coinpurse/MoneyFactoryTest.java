@@ -125,6 +125,7 @@ public class MoneyFactoryTest {
         MoneyFactory.setFactory(new MalayMoneyFactory());
         MoneyFactory m = MoneyFactory.getInstance();
         assertEquals(m.createMoney(0.05),new Coin(5,"Sen"));
+        assertEquals(m.createMoney(0.1),new Coin(10,"Sen"));
         assertEquals(m.createMoney("0.20"),new Coin(20,"Sen"));
         assertEquals(m.createMoney(0.5),new Coin(50,"Sen"));
         assertEquals(m.createMoney("2"),new BankNote(2,RINGGIT));

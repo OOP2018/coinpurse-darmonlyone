@@ -1,5 +1,8 @@
 package coinpurse;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * MoneyFactory class for Malaysia Currency
  * @author Manusporn Fukkham
@@ -7,6 +10,10 @@ package coinpurse;
 public class MalayMoneyFactory extends MoneyFactory {
     /** Malay currency*/
     private final String CURRENCY = "Ringgit";
+    /**Malay value of Coin*/
+    private Double[] malayCoin = {0.05,0.10,0.20,0.50};
+    /**Malay value of Banknote*/
+    private Double[] malayNote = {1.0,2.0,5.0,10.0,20.0,50.0,100.0};
 
     /**
      * Constructor of MalayMoneyFactory
@@ -24,9 +31,10 @@ public class MalayMoneyFactory extends MoneyFactory {
      */
     @Override
     public Valuable createMoney(double value) {
-        if (value == 0.05 || value  == 0.10|| value == 0.20 || value == 0.50) return new Coin(value*100,"Sen");
-        else if (value == 1 || value == 2 || value == 5 || value == 10) return new BankNote(value,CURRENCY);
-        else if (value == 20 || value == 50 || value == 100 ) return new BankNote(value,CURRENCY);
+        List<Double> coin = Arrays.asList(malayCoin);
+        List<Double> bankNote = Arrays.asList(malayNote);
+        if (coin.contains(value))return new Coin(value*100,"Sen");
+        else if (bankNote.contains(value)) return new BankNote(value,CURRENCY);
         else throw new IllegalArgumentException("Malaysia doesn't have this value banknote or coin");
     }
 }

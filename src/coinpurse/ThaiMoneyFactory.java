@@ -1,5 +1,8 @@
 package coinpurse;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * MoneyFactory class for Thai Currency
  * @author Manusporn Fukkham
@@ -7,6 +10,10 @@ package coinpurse;
 public class ThaiMoneyFactory extends MoneyFactory {
     /** Thai Currency */
     private final String CURRENCY = "Baht";
+    /**Thai value of coin*/
+    private Double[] thaiCoin = {1.0,2.0,5.0,10.0};
+    /**Thai value of Banknote*/
+    private Double[] thaiNote = {20.0,50.0,100.0,500.0,1000.0};
 
     /**
      * Constructor of ThaiMoneyFactory
@@ -24,8 +31,10 @@ public class ThaiMoneyFactory extends MoneyFactory {
      */
     @Override
     public Valuable createMoney(double value) {
-        if (value == 1 || value == 2 || value == 5 || value == 10) return new Coin(value,CURRENCY);
-        else if (value == 20 || value == 50 || value == 100 || value == 500 || value == 1000) return new BankNote(value,CURRENCY);
+        List<Double> coin = Arrays.asList(thaiCoin);
+        List<Double> bankNote = Arrays.asList(thaiNote);
+        if (coin.contains(value))return new Coin(value,CURRENCY);
+        if (bankNote.contains(value))return new BankNote(value,CURRENCY);
         else throw new IllegalArgumentException("Thailand doesn't have this value banknote or coin");
     }
 }
