@@ -14,7 +14,6 @@ public class Coin extends Money {
      */
     public Coin(double value , String currency){
         super(value, currency);
-
     }
 
     /**
@@ -24,7 +23,7 @@ public class Coin extends Money {
     @Override
     public String toString() {
         String toS = (getValue() >= 1 ? String.format("%.0f-%s(coin)",getValue(),getCurrency()) : String.format("%.2f-%s(coin)",getValue(),getCurrency()));
-        setCurrency(getCountryCurrency());
+        if (getCountryCurrency() != null)setCurrency(getCountryCurrency());
       return toS;
     }
 

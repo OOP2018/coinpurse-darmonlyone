@@ -27,21 +27,20 @@ public class BankNote extends Money{
     }
 
     /**
+     * too set new SerialNumber for new Factory
+     * @param nextSerialNumber start number of SerialNumber
+     */
+    public static void setNextSerialNumber(long nextSerialNumber) {
+        BankNote.nextSerialNumber = nextSerialNumber;
+    }
+    /**
      * Make a string form an object
      * @return a string representation of the argumen
      */
     @Override
     public String toString() {
         String toS = String.format("%.0f-%s(note) [%d]",getValue(),getCurrency(),serialNumber);
-        setCurrency(getCountryCurrency());
+        if (getCountryCurrency() != null)setCurrency(getCountryCurrency());
         return toS;
-    }
-
-    /**
-     * too set new SerialNumber for new Factory
-     * @param nextSerialNumber start number of SerialNumber
-     */
-    public static void setNextSerialNumber(long nextSerialNumber) {
-        BankNote.nextSerialNumber = nextSerialNumber;
     }
 }

@@ -62,14 +62,14 @@ public class MoneyFactoryTest {
     public void testCreateThaiMoney(){
         MoneyFactory.setFactory(new ThaiMoneyFactory());
         MoneyFactory m = MoneyFactory.getInstance();
-        assertEquals(m.createMoney(1),new Coin(1,BAHT));
-        assertEquals(m.createMoney("2"),new Coin(2,BAHT));
-        assertEquals(m.createMoney(5),new Coin(5,BAHT));
-        assertEquals(m.createMoney("10"),new Coin(10,BAHT));
-        assertEquals(m.createMoney(20),new BankNote(20,BAHT));
-        assertEquals(m.createMoney("100"),new BankNote(100,BAHT));
-        assertEquals(m.createMoney(500),new BankNote(500,BAHT));
-        assertEquals(m.createMoney("1000"),new BankNote(1000,BAHT));
+        assertEquals(new Coin(1,BAHT),m.createMoney(1));
+        assertEquals(new Coin(2,BAHT),m.createMoney("2"));
+        assertEquals(new Coin(5,BAHT),m.createMoney(5));
+        assertEquals(new Coin(10,BAHT),m.createMoney("10"));
+        assertEquals(new BankNote(20,BAHT),m.createMoney(20));
+        assertEquals(new BankNote(100,BAHT),m.createMoney("100"));
+        assertEquals(new BankNote(500,BAHT),m.createMoney(500));
+        assertEquals(new BankNote(1000,BAHT),m.createMoney("1000"));
     }
     /** test make thai money with double*/
     @Test
@@ -124,18 +124,18 @@ public class MoneyFactoryTest {
     public void testCreateMalayMoney(){
         MoneyFactory.setFactory(new MalayMoneyFactory());
         MoneyFactory m = MoneyFactory.getInstance();
-        assertEquals(m.createMoney(0.05),new Coin(5,"Sen"));
-        assertEquals(m.createMoney(0.1),new Coin(10,"Sen"));
-        assertEquals(m.createMoney("0.20"),new Coin(20,"Sen"));
-        assertEquals(m.createMoney(0.5),new Coin(50,"Sen"));
-        assertEquals(m.createMoney("2"),new BankNote(2,RINGGIT));
-        assertEquals(m.createMoney("1"),new BankNote(1,RINGGIT));
-        assertEquals(m.createMoney("10"),new BankNote(10,RINGGIT));
-        assertEquals(m.createMoney(5),new BankNote(5,RINGGIT));
-        assertEquals(m.createMoney("10"),new BankNote(10,RINGGIT));
-        assertEquals(m.createMoney(20),new BankNote(20,RINGGIT));
-        assertEquals(m.createMoney("50"),new BankNote(50,RINGGIT));
-        assertEquals(m.createMoney(100),new BankNote(100,RINGGIT));
+        assertEquals(new Coin(5,"Sen"),m.createMoney(0.05));
+        assertEquals(new Coin(10,"Sen"),m.createMoney(0.1));
+        assertEquals(new Coin(20,"Sen"),m.createMoney("0.20"));
+        assertEquals(new Coin(50,"Sen"),m.createMoney(0.5));
+        assertEquals(new BankNote(2,RINGGIT),m.createMoney("2"));
+        assertEquals(new BankNote(1,RINGGIT),m.createMoney("1"));
+        assertEquals(new BankNote(10,RINGGIT),m.createMoney("10"));
+        assertEquals(new BankNote(5,RINGGIT),m.createMoney(5));
+        assertEquals(new BankNote(10,RINGGIT),m.createMoney("10"));
+        assertEquals(new BankNote(20,RINGGIT),m.createMoney(20));
+        assertEquals(new BankNote(50,RINGGIT),m.createMoney("50"));
+        assertEquals(new BankNote(100,RINGGIT),m.createMoney(100));
     }
     /** test make malay money with double*/
     @Test
@@ -183,5 +183,23 @@ public class MoneyFactoryTest {
         assertFalse(testMakeMoney("4.0"));
         assertFalse(testMakeMoney("501"));
         assertFalse(testMakeMoney("102"));
+    }
+    @Test
+    public void testCollectToStringCurrency(){
+        MoneyFactory.setFactory(new MalayMoneyFactory());
+        MoneyFactory factory = MoneyFactory.getInstance();
+        Coin n1 = (Coin) factory.createMoney(0.20);
+        Coin n2 = (Coin) factory.createMoney("0.05");
+        Coin n3 = (Coin) factory.createMoney("0.10");
+        Coin n4 = (Coin) factory.createMoney(0.5);
+        assertEquals("20-Sen(coin)",n1.toString());
+        assertEquals("5-Sen(coin)",n2.toString());
+        assertEquals("10-Sen(coin)",n3.toString());
+        assertEquals("50-Sen(coin)",n4.toString());
+        assertEquals(RINGGIT,n1.getCurrency());
+        assertEquals(RINGGIT,n2.getCurrency());
+        assertEquals(RINGGIT,n3.getCurrency());
+        assertEquals(RINGGIT,n4.getCurrency());
+
     }
 }
