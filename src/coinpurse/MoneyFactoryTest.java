@@ -89,7 +89,7 @@ public class MoneyFactoryTest {
         assertEquals(new BankNote(1000,BAHT),m.createMoney("1000"));
     }
 
-    /** test make thai money,, with double*/
+    /** test make thai money with double*/
     @Test
     public void testMakeThaiMoneyDouble(){
         MoneyFactory.setFactory(new ThaiMoneyFactory());
