@@ -11,6 +11,8 @@ public class BankNote extends Money{
     private long serialNumber;
     /** currency of banknote that its take in*/
     private String valueCurrency;
+    /** the currency of each serial Banknote*/
+    private static String serialCurrency = null;
     /**
      * Initialize new BankNote object
      * @param value amount of the money
@@ -18,8 +20,13 @@ public class BankNote extends Money{
      */
     public BankNote(double value, String currency ){
         super(value,getCountryCurrency() == null ? currency : getCountryCurrency());
-        this.serialNumber = nextSerialNumber++;
         valueCurrency = currency;
+        if (serialCurrency == null) serialCurrency = valueCurrency;
+        else if (!serialCurrency.equals(valueCurrency)){
+            nextSerialNumber = 1000000;
+            serialCurrency = null;
+        }
+        this.serialNumber = nextSerialNumber++;
     }
     /**
      * @return return the serial number
@@ -28,13 +35,6 @@ public class BankNote extends Money{
         return serialNumber;
     }
 
-    /**
-     * too set new SerialNumber for new Factory
-     * @param nextSerialNumber start number of SerialNumber
-     */
-    public static void setNextSerialNumber(long nextSerialNumber) {
-        BankNote.nextSerialNumber = nextSerialNumber;
-    }
     /**
      * Make a string form an object
      * @return a string representation of the argumen

@@ -9,6 +9,8 @@ import org.junit.Test;
  * @author Manusporn Fukkham
  */
 public class MoneyFactoryTest {
+    /** tolerance for comparing two double values */
+    private static final double TOL = 1.0E-6;
     /**thai currency*/
     private final String BAHT = "Baht";
     /**malay currency*/
@@ -109,10 +111,10 @@ public class MoneyFactoryTest {
     public void testCreateMalayMoney(){
         MoneyFactory.setFactory(new MalayMoneyFactory());
         MoneyFactory m = MoneyFactory.getInstance();
-        assertEquals(new Coin(5,"Sen"),m.createMoney(0.05));
-        assertEquals(new Coin(10,"Sen"),m.createMoney(0.1));
-        assertEquals(new Coin(20,"Sen"),m.createMoney("0.20"));
-        assertEquals(new Coin(50,"Sen"),m.createMoney(0.5));
+        assertEquals(new Coin(0.05,"Sen"),m.createMoney(0.05));
+        assertEquals(new Coin(0.10,"Sen"),m.createMoney(0.1));
+        assertEquals(new Coin(0.20,"Sen"),m.createMoney("0.20"));
+        assertEquals(new Coin(0.50,"Sen"),m.createMoney(0.5));
         assertEquals(new BankNote(2,RINGGIT),m.createMoney("2"));
         assertEquals(new BankNote(1,RINGGIT),m.createMoney("1"));
         assertEquals(new BankNote(10,RINGGIT),m.createMoney("10"));
@@ -188,5 +190,33 @@ public class MoneyFactoryTest {
         Valuable n8 =  factory.createMoney(100);
         assertEquals(RINGGIT,n8.getCurrency());
 
+    }
+    /** test get value equal eo expect value of Malay factory*/
+    public void testGetMalayValue(){
+        MoneyFactory.setFactory(new MalayMoneyFactory());
+        MoneyFactory f = MoneyFactory.getInstance();
+        Valuable v = f.createMoney(0.05);
+        assertEquals(0.05,v.getValue(),TOL);
+        Valuable v2 = f.createMoney(0.1);
+        assertEquals(0.1,v2.getValue(),TOL);
+        Valuable v3 = f.createMoney(0.2);
+        assertEquals(0.2,v3.getValue(),TOL);
+        Valuable v4 = f.createMoney(0.5);
+        assertEquals(0.5,v4.getValue(),TOL);
+    }
+    /** test getValue equal eo expect value*/
+    @Test
+    public void testGetValue(){
+        testGetMalayValue();
+        MoneyFactory.setFactory(new MalayMoneyFactory());
+        MoneyFactory f = MoneyFactory.getInstance();
+        Valuable v = f.createMoney(0.05);
+        assertEquals(0.05,v.getValue(),TOL);
+        MoneyFactory.setFactory(new ThaiMoneyFactory());
+        MoneyFactory f2 = MoneyFactory.getInstance();
+        Valuable v2 = f2.createMoney(1);
+        assertEquals(1,v2.getValue(),TOL);
+        Valuable v3 = f2.createMoney(5);
+        assertEquals(5,v3.getValue(),TOL);
     }
 }

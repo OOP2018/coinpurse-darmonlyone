@@ -54,7 +54,8 @@ public class Money implements Valuable{
      * set Country currency
      * @param actualCurrency for change country currency
      */
-    public static void setCountryCurrency(String actualCurrency) {
+    public static void setCountryCurrencyCoinValue(String actualCurrency,double coinValue) {
+        Coin.setCoinValue(coinValue);
         countryCurrency = actualCurrency;
     }
     /**
@@ -63,4 +64,5 @@ public class Money implements Valuable{
     public static String getCountryCurrency() {
         return countryCurrency;
     }
+
 }

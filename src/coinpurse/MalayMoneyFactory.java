@@ -19,8 +19,7 @@ public class MalayMoneyFactory extends MoneyFactory {
      * Constructor of MalayMoneyFactory
      */
     public MalayMoneyFactory(){
-        BankNote.setNextSerialNumber(1000000);
-        Money.setCountryCurrency(CURRENCY);
+        Money.setCountryCurrencyCoinValue(CURRENCY,100);
     }
     /**
      * create new money object in the local currency.
@@ -33,7 +32,7 @@ public class MalayMoneyFactory extends MoneyFactory {
     public Valuable createMoney(double value) {
         List<Double> coin = Arrays.asList(malayCoin);
         List<Double> bankNote = Arrays.asList(malayNote);
-        if (coin.contains(value))return new Coin(value*100,"Sen");
+        if (coin.contains(value))return new Coin(value,"Sen");
         else if (bankNote.contains(value)) return new BankNote(value,CURRENCY);
         else throw new IllegalArgumentException("Malaysia doesn't have this value banknote or coin");
     }

@@ -14,6 +14,7 @@ public abstract class MoneyFactory{
      * @return Money Factory to use
      */
     public static MoneyFactory getInstance(){
+        if (moneyFactory == null) moneyFactory = MoneyFactoryReader.getFactory();
         return moneyFactory;
     }
 
@@ -35,7 +36,7 @@ public abstract class MoneyFactory{
         try {
             return createMoney(Double.parseDouble(value));
         }catch (IllegalArgumentException e){
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Can't create value from this value");
         }
     }
 
