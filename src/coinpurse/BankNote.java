@@ -7,33 +7,32 @@ import java.util.ArrayList;
  * @author Manusporn Fukkham
  */
 public class BankNote extends Money{
+    /**next serial number*/
+    private static long nextSerialNumber = 1000000;
     /**serial of the note*/
     private long serialNumber;
     /** currency of banknote that its take in*/
     private String valueCurrency;
-    /** the currency of each serial Banknote */
-    private static ArrayList<String> serialCurrencyArrayList = new ArrayList<>();
-    /** the serialNumber of each serial Banknote */
-    private static ArrayList<Long> serialNumberArrayList = new ArrayList<>();
 
     /**
      * Initialize new BankNote object
      * @param value amount of the money
      * @param currency brand of value
+     * @param newSerialNumber for the serial number of the factory
      */
-    public BankNote(double value, String currency ){
+    public BankNote(double value, String currency,long newSerialNumber ){
         super(value,getCountryCurrency() == null ? currency : getCountryCurrency());
         valueCurrency = currency;
-        long newSerialNumber;
-        if (!serialCurrencyArrayList.contains(currency)) {
-            newSerialNumber = 1000000;
-            serialCurrencyArrayList.add(currency);
-            serialNumberArrayList.add((long) 1000000);
-        }else{
-            newSerialNumber = serialNumberArrayList.get(serialCurrencyArrayList.indexOf(currency)) + 1;
-            serialNumberArrayList.set(serialCurrencyArrayList.indexOf(currency), newSerialNumber);
-        }
         this.serialNumber = newSerialNumber;
+    }
+
+    /**
+     * Initialize new BankNote object within didn't make form factory
+     * @param value amount of the money
+     * @param currency brand of value
+     */
+    public BankNote(double value, String currency){
+        this(value,currency,nextSerialNumber++);
     }
     /**
      * @return return the serial number
