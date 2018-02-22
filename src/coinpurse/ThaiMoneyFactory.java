@@ -18,8 +18,7 @@ public class ThaiMoneyFactory extends MoneyFactory {
     private static long nextSerialNumber = 1000000;
     /**Constructor of ThaiMoneyFactory */
     public ThaiMoneyFactory(){
-        //for coinValue; if value is 0.05 but its mean 5 so coinValue = 100
-        Money.setCountryCurrencyCoinValue(CURRENCY,1);
+        Money.setCountryCurrencyCoinValue(CURRENCY);
     }
     /**
      * create new money object in the local currency.

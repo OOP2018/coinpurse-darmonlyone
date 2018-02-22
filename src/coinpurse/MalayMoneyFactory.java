@@ -19,8 +19,7 @@ public class MalayMoneyFactory extends MoneyFactory {
 
     /**Constructor of MalayMoneyFactory*/
     public MalayMoneyFactory(){
-        //for coinValue; if value is 0.05 but its mean 5 so coinValue = 100
-        Money.setCountryCurrencyCoinValue(CURRENCY,100);
+        Money.setCountryCurrencyCoinValue(CURRENCY);
     }
     /**
      * create new money object in the local currency.
@@ -33,7 +32,8 @@ public class MalayMoneyFactory extends MoneyFactory {
     public Valuable createMoney(double value) {
         List<Double> coin = Arrays.asList(malayCoin);
         List<Double> bankNote = Arrays.asList(malayNote);
-        if (coin.contains(value))return new Coin(value,"Sen");
+        //Coin(value,currency,coinValue); if value is 0.05 but its mean 5 so coinValue = 100
+        if (coin.contains(value))return new Coin(value,"Sen",100);
         else if (bankNote.contains(value)) return new BankNote(value,CURRENCY,nextSerialNumber++);
         else throw new IllegalArgumentException("Malaysia doesn't have this value banknote or coin");
     }
