@@ -13,7 +13,7 @@ import java.util.ArrayList;
  *
  *  @author Manusporn Fukkham
  */
-public class Purse {
+public class Purse extends java.util.Observable {
     /**Comparator of valuable**/
     private Comparator<Valuable> comp = new ValueComparator();
     /** Collection of objects in the purse. */

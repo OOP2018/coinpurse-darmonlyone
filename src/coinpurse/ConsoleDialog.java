@@ -35,6 +35,9 @@ public class ConsoleDialog {
         String choice = "";
         String prompt = FULL_PROMPT;
         loop: while( true ) {
+//            PurseView purseView = new PurseView(purse);
+//            purse.addObserver(purseView);
+//            purseView.run();
             System.out.printf("Purse contains %.2f %s\n", purse.getBalance(), CURRENCY );
             if ( purse.isFull() ) System.out.println("Purse is FULL.");
             // print a list of choices
