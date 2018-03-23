@@ -9,7 +9,7 @@ public class Money implements Valuable{
     private static String countryCurrency;
 
     public Money(double value , String currency){
-        if(value < 0 ) throw new IllegalArgumentException("The value must not be negative.");
+//        if(value < 0 ) throw new IllegalArgumentException("The value must not be negative.");
         this.value = value;
         this.currency = currency;
     }

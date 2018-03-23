@@ -1,4 +1,9 @@
-package coinpurse;
+package coinpurse.moneyfactory;
+
+import coinpurse.BankNote;
+import coinpurse.Coin;
+import coinpurse.Money;
+import coinpurse.Valuable;
 
 import java.util.Arrays;
 import java.util.List;

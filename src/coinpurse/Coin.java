@@ -35,7 +35,7 @@ public class Coin extends Money {
      */
     @Override
     public String toString() {
-        return ( String.format("%.0f-%s(coin)",beValue,valueCurrency));
+        return beValue < 1 ?(String.format("%.2f-%s(coin)",beValue,valueCurrency)):(String.format("%.0f-%s(coin)",beValue,valueCurrency));
     }
 
 }

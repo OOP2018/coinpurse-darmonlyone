@@ -1,4 +1,6 @@
-package coinpurse;
+package coinpurse.testPurse;
+
+import coinpurse.*;
 
 /**
  * check the purse class
@@ -38,7 +40,7 @@ public class PurseUtil {
         System.out.println(asTrue(purse3.getBalance(),expect[2]));
     }
 
-    public static Purse insertPurse(Valuable ...valuable){
+    public static Purse insertPurse(Valuable...valuable){
         Purse p = new Purse(valuable.length);
         for (Valuable valuable1 : valuable){
             p.insert(valuable1);

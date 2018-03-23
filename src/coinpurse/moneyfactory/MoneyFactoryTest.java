@@ -1,6 +1,10 @@
-package coinpurse;
+package coinpurse.moneyfactory;
 import static org.junit.Assert.*;
 
+import coinpurse.BankNote;
+import coinpurse.Coin;
+import coinpurse.Valuable;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -81,11 +85,11 @@ public class MoneyFactoryTest {
     public void testCreateThaiMoney(){
         MoneyFactory.setFactory(new ThaiMoneyFactory());
         MoneyFactory m = MoneyFactory.getInstance();
-        assertEquals(new Coin(1,BAHT),m.createMoney(1));
+        Assert.assertEquals(new Coin(1,BAHT),m.createMoney(1));
         assertEquals(new Coin(2,BAHT),m.createMoney("2"));
         assertEquals(new Coin(5,BAHT),m.createMoney(5));
         assertEquals(new Coin(10,BAHT),m.createMoney("10"));
-        assertEquals(new BankNote(20,BAHT),m.createMoney(20));
+        Assert.assertEquals(new BankNote(20,BAHT),m.createMoney(20));
         assertEquals(new BankNote(100,BAHT),m.createMoney("100"));
         assertEquals(new BankNote(500,BAHT),m.createMoney(500));
         assertEquals(new BankNote(1000,BAHT),m.createMoney("1000"));

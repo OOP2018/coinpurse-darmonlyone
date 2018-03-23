@@ -1,5 +1,7 @@
 package coinpurse;
  
+import coinpurse.moneyfactory.MoneyFactory;
+
 import java.util.Scanner;
 
 /** 

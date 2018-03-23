@@ -1,5 +1,9 @@
 package coinpurse;
 
+import coinpurse.strategy.GreedyStrategy;
+import coinpurse.strategy.RecusiveWithdraw;
+import coinpurse.strategy.WithDrawStrategy;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -18,11 +22,14 @@ public class Purse extends java.util.Observable {
     private Comparator<Valuable> comp = new ValueComparator();
     /** Collection of objects in the purse. */
     private List<Valuable> money;
-    /** Capacity is maximum number of items the purse can hold.
+    /**
+     * Capacity is maximum number of items the purse can hold.
      *  Capacity is set when the purse is created and cannot be changed.
      */
     private final int capacity;
 
+    /**Doing withdraw purse using  Strategy*/
+    private WithDrawStrategy strategy;
     /**
      *  Create a purse with a specified capacity.
      *  @param capacity is maximum number of money you can put in purse.
@@ -30,6 +37,7 @@ public class Purse extends java.util.Observable {
     public Purse( int capacity ) {
         money = new ArrayList<Valuable>();
         this.capacity = capacity;
+        setWithdrawStrategy(new RecusiveWithdraw());
     }
 
     /**
@@ -107,30 +115,16 @@ public class Purse extends java.util.Observable {
      *    or null if cannot withdraw requested amount.
      */
      public Valuable[] withdraw(Valuable amount){
-         if(amount.getValue() < 0 )return null;
+         if(amount.getValue() < 0 || amount == null)return null;
          money.sort(comp);
          Collections.reverse(money);
-
-         List<Valuable> withDraw = new ArrayList<>();
-         double amountNeededToWithdraw = amount.getValue();
-         for (Valuable monies : money){
-             if (amountNeededToWithdraw != 0 && monies.getCurrency().equalsIgnoreCase(amount.getCurrency())) {
-                 if ((amountNeededToWithdraw - monies.getValue() >= 0)){
-                     amountNeededToWithdraw -= monies.getValue();
-                     withDraw.add(monies);
-                 }
-             }
-         }
-
-         for (Valuable valuable : withDraw){
+         List<Valuable> withDraw = strategy.withdraw(amount,money);
+         if (withDraw == null) return null;
+         for (Valuable  valuable : withDraw){
              money.remove(valuable);
          }
-
          Valuable[] moneyArray = new Valuable[withDraw.size()];
-         if (amountNeededToWithdraw > 0 || withDraw.isEmpty()){
-             money.addAll(withDraw);
-             return null;
-         }
+         if (withDraw.isEmpty())return null;
          return withDraw.toArray(moneyArray);
     }
 
@@ -149,4 +143,8 @@ public class Purse extends java.util.Observable {
     	return String.format("%s, %d valuable with value %.2f ",str,valuableHave,getBalance());
     }
 
+    /**set strategy to withdraw*/
+    public void setWithdrawStrategy(WithDrawStrategy withDrawStrategy){
+        this.strategy = withDrawStrategy;
+    }
 }

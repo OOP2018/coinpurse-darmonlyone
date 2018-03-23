@@ -1,4 +1,4 @@
-package coinpurse;
+package coinpurse.moneyfactory;
 
 import java.util.ResourceBundle;
 

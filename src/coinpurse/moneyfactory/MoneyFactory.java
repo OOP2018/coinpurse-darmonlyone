@@ -1,4 +1,6 @@
-package coinpurse;
+package coinpurse.moneyfactory;
+
+import coinpurse.Valuable;
 
 /**
  * Factory class of making money for make separate Currency

@@ -1,4 +1,9 @@
-package coinpurse;
+package coinpurse.testPurse;
+
+import coinpurse.BankNote;
+import coinpurse.Coin;
+import coinpurse.Valuable;
+import coinpurse.ValueComparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
