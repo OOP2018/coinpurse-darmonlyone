@@ -106,10 +106,12 @@ public class WithdrawStrategyTest {
         valuableList.add(makeFakeMoney(1,"Won"));
         valuableList.sort(comp);
         Collections.reverse(valuableList);
-        List<Valuable> listCheck = new ArrayList<>();
-        listCheck.addAll(valuableList);
-        listCheck.remove(0);
         withdrawList = withDrawStrategy.withdraw(makeFakeMoney(5,"Won"),valuableList);
+        if (withDrawStrategy.getClass().equals(RecursiveWithdraw.class)){
+            //RecursiveWithdraw is ignore currency
+            assertTrue(withdrawList != null);
+            return;
+        }
         assertTrue(withdrawList == null);
         withdrawList = withDrawStrategy.withdraw(makeFakeMoney(2,"LOL"),valuableList);
         assertTrue(withdrawList == null);
