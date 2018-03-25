@@ -16,7 +16,10 @@ public class WithdrawStrategyTest {
     private final String THB = "Baht";
     /** tolerance for comparing two double values */
     private static final double TOL = 1.0E-6;
+    /**list of purse*/
     private List<Valuable> valuableList;
+    /**list of purse*/
+    private List<Valuable> withdrawList;
     /**The strategy to withdraw*/
     private WithDrawStrategy withDrawStrategy;
     /**Comparator of valuable**/
@@ -26,6 +29,7 @@ public class WithdrawStrategyTest {
 //        withDrawStrategy = new RecusiveWithdraw();
         withDrawStrategy = new GreedyStrategy();
         valuableList = new ArrayList<>();
+        withdrawList = new ArrayList<>();
     }
 
     /**test withdraw all valuable*/
@@ -35,14 +39,16 @@ public class WithdrawStrategyTest {
         valuableList.addAll(makeMoneyArray(1,2,5,10,20,50,100,500,1000));
         valuableList.sort(comp);
         Collections.reverse(valuableList);
-        valuableList = withDrawStrategy.withdraw(makeMoney(1688),valuableList);
+        withdrawList = withDrawStrategy.withdraw(makeMoney(1688),valuableList);
         double value = 0;
-        for (Valuable valuable : valuableList){
+        for (Valuable valuable : withdrawList){
             value += valuable.getValue();
         }
+        assertTrue(valuableList.containsAll(withdrawList));
+        assertEquals(withdrawList,valuableList);
         assertFalse(value == 0);
         assertTrue(value == 1688);
-        assertFalse(valuableList.isEmpty());
+        assertFalse(withdrawList.isEmpty());
     }
 
     /**test withdraw high value*/
@@ -51,15 +57,15 @@ public class WithdrawStrategyTest {
         valuableList.addAll(makeMoneyArray(1,1,2,5,10,20,50,100,500,500,1000,1000,1000));
         valuableList.sort(comp);
         Collections.reverse(valuableList);
-        valuableList = withDrawStrategy.withdraw(makeMoney(3502),valuableList);
+        withdrawList = withDrawStrategy.withdraw(makeMoney(3502),valuableList);
         assertFalse(valuableList.isEmpty());
         double value = 0;
-        for (Valuable valuable : valuableList){
+        for (Valuable valuable : withdrawList){
             value += valuable.getValue();
         }
+        assertFalse(withdrawList.equals(valuableList));
         assertFalse(value == 4189);
         assertTrue(value != 0);
-        System.out.println("asd"+valuableList);
         assertEquals(3502,value,TOL);
     }
 
@@ -69,16 +75,17 @@ public class WithdrawStrategyTest {
         valuableList.addAll(makeMoneyArray(1,2,5,10,20,50,100,500,1000));
         valuableList.sort(comp);
         Collections.reverse(valuableList);
-        valuableList = withDrawStrategy.withdraw(makeFakeMoney(0,"Baht"),valuableList);
+        withdrawList = withDrawStrategy.withdraw(makeFakeMoney(0,"Baht"),valuableList);
         double contain = 0;
         for (Valuable valuable : valuableList){
             contain += valuable.getValue();
         }
+        assertTrue(withdrawList.equals(valuableList));
         assertEquals(1688,contain,TOL);
         assertFalse( contain == 0);
-        assertTrue(valuableList.size() == 9);
-        assertFalse(valuableList.size() < 9);
-        assertFalse(valuableList.isEmpty());
+        assertTrue(withdrawList.size() == 9);
+        assertFalse(withdrawList.size() < 9);
+        assertFalse(withdrawList.isEmpty());
     }
 
     /**test withdraw with shuffle amount*/
@@ -87,12 +94,12 @@ public class WithdrawStrategyTest {
         valuableList.addAll(makeMoneyArray(2,1,2,5,10,20,50,5,100,500,100,1000,500));
         valuableList.sort(comp);
         Collections.reverse(valuableList);
-        valuableList = withDrawStrategy.withdraw(makeFakeMoney(1674,"Baht"),valuableList);
-        assertFalse(valuableList.isEmpty());
-        assertTrue(valuableList.size() != 0);
-        valuableList = withDrawStrategy.withdraw(makeFakeMoney(621,"Baht"),valuableList);
-        System.out.println(valuableList);
-        assertTrue(valuableList.isEmpty());
+        withdrawList = withDrawStrategy.withdraw(makeFakeMoney(1674,"Baht"),valuableList);
+        assertFalse(withdrawList.isEmpty());
+        assertTrue(withdrawList.size() != 0);
+        withdrawList.addAll(withDrawStrategy.withdraw(makeFakeMoney(619,"Baht"),valuableList));
+        assertFalse(withdrawList.isEmpty());
+        assertTrue(valuableList.containsAll(withdrawList));
     }
 
     /**test withdraw with not thai currency*/
@@ -105,11 +112,12 @@ public class WithdrawStrategyTest {
         List<Valuable> listCheck = new ArrayList<>();
         listCheck.addAll(valuableList);
         listCheck.remove(0);
-        valuableList = withDrawStrategy.withdraw(makeFakeMoney(1,"Won"),valuableList);
-        valuableList = withDrawStrategy.withdraw(makeFakeMoney(2,"LOL"),valuableList);
-        valuableList = withDrawStrategy.withdraw(makeFakeMoney(5,"Won"),valuableList);
-        assertEquals(new ArrayList<>(),valuableList);
-        assertTrue(valuableList.isEmpty());
+        withdrawList = withDrawStrategy.withdraw(makeFakeMoney(1,"Won"),valuableList);
+        withdrawList.addAll(withDrawStrategy.withdraw(makeFakeMoney(2,"LOL"),valuableList));
+        withdrawList.addAll(withDrawStrategy.withdraw(makeFakeMoney(5,"Won"),valuableList));
+        assertEquals(new ArrayList<>().add(makeFakeMoney(1,"Won")),withdrawList.contains(makeFakeMoney(1,"Won")));
+        assertFalse(withdrawList.isEmpty());
+        assertTrue(withdrawList.size() == 1);
     }
 
     /**test withdraw over amount*/
@@ -132,7 +140,7 @@ public class WithdrawStrategyTest {
     @Test(expected = IndexOutOfBoundsException.class)
     public void testEmptyListThrowException(){
         List<Valuable> list = new ArrayList<>();
-        list.add(5,new Money(10,THB));
+        list.add(1,new Money(10,THB));
     }
 
     /**test Empty list*/
@@ -141,8 +149,9 @@ public class WithdrawStrategyTest {
         List<Valuable> list = new ArrayList<>();
         list.add(null);
         list.addAll(makeMoneyArray(1000, 1000));
-        list = withDrawStrategy.withdraw(makeMoney(10),list);
+        withdrawList = withDrawStrategy.withdraw(makeMoney(10),list);
     }
+
     /** Make a Money using requested value currency as Baht */
     private Valuable makeMoney(double value) {
         return new Money(value,"Baht");
