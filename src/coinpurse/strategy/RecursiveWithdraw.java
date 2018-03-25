@@ -14,7 +14,7 @@ import java.util.List;
  * Withdraw Strategy using recusion
  * @author Manusporn Fukkham
  */
-public class RecusiveWithdraw implements WithDrawStrategy{
+public class RecursiveWithdraw implements WithDrawStrategy{
 
     /**
      * withdraw money in using recursion

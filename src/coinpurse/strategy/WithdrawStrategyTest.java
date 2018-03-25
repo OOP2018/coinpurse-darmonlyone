@@ -3,7 +3,6 @@ package coinpurse.strategy;
 import java.util.*;
 
 import coinpurse.*;
-import coinpurse.moneyfactory.MoneyFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,7 +25,8 @@ public class WithdrawStrategyTest {
     private Comparator<Valuable> comp = new ValueComparator();
     @Before
     public void setUp(){
-//        withDrawStrategy = new RecusiveWithdraw();
+
+//        withDrawStrategy = new RecursiveWithdraw();
         withDrawStrategy = new GreedyStrategy();
         valuableList = new ArrayList<>();
         withdrawList = new ArrayList<>();
@@ -45,7 +45,6 @@ public class WithdrawStrategyTest {
             value += valuable.getValue();
         }
         assertTrue(valuableList.containsAll(withdrawList));
-        assertEquals(withdrawList,valuableList);
         assertFalse(value == 0);
         assertTrue(value == 1688);
         assertFalse(withdrawList.isEmpty());
@@ -80,12 +79,10 @@ public class WithdrawStrategyTest {
         for (Valuable valuable : valuableList){
             contain += valuable.getValue();
         }
-        assertTrue(withdrawList.equals(valuableList));
         assertEquals(1688,contain,TOL);
         assertFalse( contain == 0);
-        assertTrue(withdrawList.size() == 9);
-        assertFalse(withdrawList.size() < 9);
-        assertFalse(withdrawList.isEmpty());
+        assertTrue(withdrawList.size() != 9);
+        assertTrue(withdrawList.isEmpty());
     }
 
     /**test withdraw with shuffle amount*/
@@ -112,28 +109,24 @@ public class WithdrawStrategyTest {
         List<Valuable> listCheck = new ArrayList<>();
         listCheck.addAll(valuableList);
         listCheck.remove(0);
+        withdrawList = withDrawStrategy.withdraw(makeFakeMoney(5,"Won"),valuableList);
+        assertTrue(withdrawList == null);
+        withdrawList = withDrawStrategy.withdraw(makeFakeMoney(2,"LOL"),valuableList);
+        assertTrue(withdrawList == null);
         withdrawList = withDrawStrategy.withdraw(makeFakeMoney(1,"Won"),valuableList);
-        withdrawList.addAll(withDrawStrategy.withdraw(makeFakeMoney(2,"LOL"),valuableList));
-        withdrawList.addAll(withDrawStrategy.withdraw(makeFakeMoney(5,"Won"),valuableList));
+        assertFalse(withdrawList == null);
         assertEquals(new ArrayList<>().add(makeFakeMoney(1,"Won")),withdrawList.contains(makeFakeMoney(1,"Won")));
         assertFalse(withdrawList.isEmpty());
-        assertTrue(withdrawList.size() == 1);
     }
 
     /**test withdraw over amount*/
-    @Test(timeout = 2000)
+    @Test(expected = NullPointerException.class)
     public void testWithDrawOverAmount(){
         List<Valuable> list = new ArrayList<>();
         list.addAll(makeMoneyArray(1000, 1000));
         list = withDrawStrategy.withdraw(makeFakeMoney(10000000, "Baht"), list);
-        assertTrue(list.isEmpty());
-        assertTrue(list.size() == 0 );
-        double value = 0;
-        for (Valuable valuable : list){
-            value += valuable.getValue();
-        }
-        assertEquals(0,value,TOL);
-
+        assertTrue(list == null);
+        list.add(makeMoney(1));
     }
 
     /**test Empty list*/

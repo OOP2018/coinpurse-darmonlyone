@@ -1,7 +1,6 @@
 package coinpurse;
 
-import coinpurse.strategy.GreedyStrategy;
-import coinpurse.strategy.RecusiveWithdraw;
+import coinpurse.strategy.RecursiveWithdraw;
 import coinpurse.strategy.WithDrawStrategy;
 
 import java.util.Collections;
@@ -37,7 +36,7 @@ public class Purse extends java.util.Observable {
     public Purse( int capacity ) {
         money = new ArrayList<Valuable>();
         this.capacity = capacity;
-        setWithdrawStrategy(new RecusiveWithdraw());
+        setWithdrawStrategy(new RecursiveWithdraw());
     }
 
     /**

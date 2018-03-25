@@ -27,7 +27,7 @@ public class GreedyStrategy implements WithDrawStrategy {
      */
     @Override
     public List<Valuable> withdraw(Valuable amount, List<Valuable> money) {
-        if (amount.getValue() == 0)return money;
+        if (amount.getValue() == 0)return new ArrayList<>();
         List<Valuable> withDraw = new ArrayList<>();
         double amountNeededToWithdraw = amount.getValue();
         for (Valuable monies : money){
@@ -39,7 +39,7 @@ public class GreedyStrategy implements WithDrawStrategy {
             }
         }
         if (amountNeededToWithdraw > 0 || withDraw.isEmpty()){
-            return new ArrayList<>();
+            return null;
         }
         return withDraw;
     }
