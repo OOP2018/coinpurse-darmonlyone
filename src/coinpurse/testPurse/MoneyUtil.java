@@ -28,9 +28,11 @@ public class MoneyUtil {
         valuable.add( new Coin(3.0, "Bath"));
         valuable.add( new Coin(4.0, "Bath"));
         valuable.add( new Coin(5.0, "Rubie"));
+        System.out.println("Purse we need");
         printCheckPurse(filterByCurrency(valuable,"Bath"));
         printPurseHave(valuable);
-        sortPurse(valuable);
+        System.out.println("After sort ");
+        System.out.println(sortMoney(valuable));
     }
 
     /**
@@ -38,12 +40,10 @@ public class MoneyUtil {
      * @param valuable List of Valuable
      */
     public static void printCheckPurse(List<Valuable> valuable){
-        System.out.println("Purse we need");
         for (Valuable valuables: valuable){
             System.out.print(valuables + " ");
         }
-        System.out.println("");
-        sortPurse(valuable);
+        System.out.println(sortMoney(valuable));
     }
 
     /**
@@ -52,9 +52,9 @@ public class MoneyUtil {
      * @param currency currency that need for fill this valuable
      * @return List of Valuable that filter the currency
      */
-    public static List<Valuable> filterByCurrency(List<Valuable> valuable, String currency){
-        List<Valuable> valuables = new ArrayList<>();
-        for (Valuable valuable1 : valuable){
+    public static <E  extends Valuable> List<E> filterByCurrency(List<E> valuable, String currency){
+        List<E> valuables = new ArrayList<>();
+        for (E valuable1 : valuable){
             if (valuable1.getCurrency().equals(currency))
                 valuables.add(valuable1);
         }
@@ -77,12 +77,23 @@ public class MoneyUtil {
      * sorting the purse
      * @param valuable List of Valuable
      */
-    public static void sortPurse(List<Valuable> valuable){
+    public static List<? extends Valuable> sortMoney(List<? extends Valuable> valuable){
         Comparator<Valuable> comp = new ValueComparator();
-        Collections.sort(valuable,comp);
-        System.out.println("After sort ");
-        for (Valuable coin: valuable){
-            System.out.print(coin + " ");
-        }
+        valuable.sort(comp);
+        return valuable;
     }
+    /**
+     * Return the larger argument, based on sort order, using
+     * the objects' own compareTo method for comparing.
+     * @param args one or more Comparable objects to compare.
+     * @return the argument that would be last if sorted the elements.
+     * @throws IllegalArgumentException if no arguments given.
+     */
+    @SafeVarargs
+    public static <E extends Comparable<? super E>> E max(E ... args) {
+        E max = args[0];
+        for (E e :args) max = (e.compareTo(max)>0) ? e : max ;
+        return max;
+    }
+
 }
