@@ -1,12 +1,8 @@
 package coinpurse.testPurse;
 
-import coinpurse.BankNote;
-import coinpurse.Coin;
-import coinpurse.Valuable;
-import coinpurse.ValueComparator;
+import coinpurse.*;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -17,6 +13,8 @@ import java.util.List;
 public class MoneyUtil {
 
     public static void main(String[] args) {
+        Money max = MoneyUtil.max(new BankNote(100,"Baht"),new BankNote(500,"Baht"));
+        System.out.println(max);
         List<Valuable> valuable = new ArrayList<>();
         valuable.add(new Coin(1,"Bath"));
         valuable.add(new BankNote(100 , "Bath"));
@@ -32,7 +30,7 @@ public class MoneyUtil {
         printCheckPurse(filterByCurrency(valuable,"Bath"));
         printPurseHave(valuable);
         System.out.println("After sort ");
-        System.out.println(sortMoney(valuable));
+        sortMoney(valuable);
     }
 
     /**
@@ -43,7 +41,7 @@ public class MoneyUtil {
         for (Valuable valuables: valuable){
             System.out.print(valuables + " ");
         }
-        System.out.println(sortMoney(valuable));
+        sortMoney(valuable);
     }
 
     /**
@@ -77,10 +75,10 @@ public class MoneyUtil {
      * sorting the purse
      * @param valuable List of Valuable
      */
-    public static List<? extends Valuable> sortMoney(List<? extends Valuable> valuable){
+    public static void sortMoney(List<? extends Valuable> valuable){
         Comparator<Valuable> comp = new ValueComparator();
         valuable.sort(comp);
-        return valuable;
+        System.out.println(valuable);
     }
     /**
      * Return the larger argument, based on sort order, using
